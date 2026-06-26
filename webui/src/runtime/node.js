@@ -76,12 +76,93 @@ define(function(require, exports, module) {
       next: 'idle',
     });
 
+    main.button({
+      position: 'bottom',
+      label: 'Transfer Children',
+      key: 'Alt + T',
+      enable: function() {
+        return !!getTransferPair();
+      },
+      action: transferChildNodes,
+      next: 'idle',
+    });
+
     function importNodeData() {
       minder.fire('importNodeData');
     }
 
     function exportNodeData() {
       minder.fire('exportNodeData');
+    }
+
+    function getTransferPair() {
+      var selectedNodes = minder.getSelectedNodes();
+      var selectedNode = minder.getSelectedNode();
+      var source = null;
+      var target = null;
+      var firstNode;
+      var secondNode;
+      var firstHasChildren;
+      var secondHasChildren;
+
+      if (selectedNodes.length != 2) {
+        return null;
+      }
+
+      firstNode = selectedNodes[0];
+      secondNode = selectedNodes[1];
+      firstHasChildren = firstNode.children && firstNode.children.length;
+      secondHasChildren = secondNode.children && secondNode.children.length;
+
+      if (firstHasChildren && !secondHasChildren) {
+        source = firstNode;
+        target = secondNode;
+      } else if (!firstHasChildren && secondHasChildren) {
+        source = secondNode;
+        target = firstNode;
+      } else if (selectedNode && selectedNodes.indexOf(selectedNode) != -1) {
+        source = selectedNode;
+        target = selectedNode == firstNode ? secondNode : firstNode;
+      } else {
+        source = firstNode;
+        target = secondNode;
+      }
+
+      if (!source.children || !source.children.length) {
+        return null;
+      }
+
+      if (source == target || source.isAncestorOf(target)) {
+        return null;
+      }
+
+      return {
+        source: source,
+        target: target,
+      };
+    }
+
+    function transferChildNodes() {
+      var transferPair = getTransferPair();
+      var source;
+      var target;
+      var children;
+
+      if (!transferPair) {
+        return;
+      }
+
+      source = transferPair.source;
+      target = transferPair.target;
+      children = source.children.slice();
+
+      children.forEach(function(child) {
+        target.appendChild(child);
+      });
+
+      minder.select(children, true);
+      minder.refresh();
+      fsm.jump('normal', 'command-executed');
     }
 
     //main.button({
