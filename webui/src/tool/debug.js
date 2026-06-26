@@ -1,7 +1,7 @@
 /**
  * @fileOverview
  *
- * 支持各种调试后门
+ * Supports debug hooks.
  *
  * @author: techird
  * @copyright: Baidu FEX, 2014

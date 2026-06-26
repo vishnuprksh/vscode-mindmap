@@ -1,7 +1,7 @@
 /**
  * @fileOverview
  *
- * 历史管理
+ * History management.
  *
  * @author: techird
  * @copyright: Baidu FEX, 2014
@@ -111,7 +111,7 @@ define(function(require, exports, module) {
         var main = hotbox.state('main');
         main.button({
             position: 'top',
-            label: '撤销',
+            label: 'Undo',
             key: 'Ctrl + Z',
             enable: hasUndo,
             action: undo,
@@ -119,7 +119,7 @@ define(function(require, exports, module) {
         });
         main.button({
             position: 'top',
-            label: '重做',
+            label: 'Redo',
             key: 'Ctrl + Y',
             enable: hasRedo,
             action: redo,

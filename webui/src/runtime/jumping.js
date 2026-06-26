@@ -1,7 +1,7 @@
 /**
  * @fileOverview
  *
- * 根据按键控制状态机的跳转
+ * Control state machine transitions from key events.
  *
  * @author: techird
  * @copyright: Baidu FEX, 2014
@@ -18,26 +18,26 @@ define(function(require, exports, module) {
         // a-zA-Z
         if (e.keyCode >= 65 && e.keyCode <= 90) return true;
 
-        // 0-9 以及其上面的符号
+        // 0-9 and the symbols above them.
         if (e.keyCode >= 48 && e.keyCode <= 57) return true;
         
-        // 小键盘区域 (除回车外)
+        // Numpad area, excluding Enter.
         if (e.keyCode != 108 && e.keyCode >= 96 && e.keyCode <= 111) return true;
 
-        // 小键盘区域 (除回车外)
+        // Numpad area, excluding Enter.
         // @yinheli from pull request
         if (e.keyCode != 108 && e.keyCode >= 96 && e.keyCode <= 111) return true;
 
-        // 输入法
+        // IME.
         if (e.keyCode == 229 || e.keyCode === 0) return true;
 
         return false;
     }
     /**
-     * @Desc: 下方使用receiver.enable()和receiver.disable()通过
-     *        修改div contenteditable属性的hack来解决开启热核后依然无法屏蔽浏览器输入的bug;
-     *        特别: win下FF对于此种情况必须要先blur在focus才能解决，但是由于这样做会导致用户
-     *             输入法状态丢失，因此对FF暂不做处理
+     * @Desc: receiver.enable() and receiver.disable() below change the div contenteditable attribute
+     *        to work around browser input that cannot be blocked after hotbox is enabled.
+     *        On Windows Firefox, this requires blur then focus, but that loses the user's IME state,
+     *        so Firefox is not handled here.
      * @Editor: Naixor
      * @Date: 2015.09.14
      */
@@ -52,12 +52,12 @@ define(function(require, exports, module) {
 
         // normal -> *
         receiver.listen('normal', function(e) {
-            // 为了防止处理进入edit模式而丢失处理的首字母,此时receiver必须为enable
+            // Keep the receiver enabled so the first typed character is not lost when entering edit mode.
             receiver.enable();
             // normal -> hotbox
             if (e.is('Space')) {
                 e.preventDefault();
-                // safari下Space触发hotbox,然而这时Space已在receiver上留下作案痕迹,因此抹掉
+                // Safari leaves the Space character in the receiver when triggering hotbox, so clear it.
                 if (kity.Browser.safari) {
                     receiverElement.innerHTML = '';
                 }
@@ -131,11 +131,11 @@ define(function(require, exports, module) {
         });
 
         //////////////////////////////////////////////
-        /// 右键呼出热盒
-        /// 判断的标准是：按下的位置和结束的位置一致
+        /// Right click opens hotbox.
+        /// Trigger only when mouse down and mouse up positions match.
         //////////////////////////////////////////////
         var downX, downY;
-        var MOUSE_RB = 2; // 右键
+        var MOUSE_RB = 2; // Right button.
 
         container.addEventListener('mousedown', function(e) {
             if (e.button == MOUSE_RB) {
@@ -174,7 +174,7 @@ define(function(require, exports, module) {
             fsm.jump('hotbox', 'content-menu');
         }, false);
 
-        // 阻止热盒事件冒泡，在热盒正确执行前导致热盒关闭
+        // Prevent hotbox events from bubbling and closing hotbox before actions run.
         hotbox.$element.addEventListener('mousedown', function(e) {
             e.stopPropagation();
         });

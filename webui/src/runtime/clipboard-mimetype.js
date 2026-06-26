@@ -1,12 +1,13 @@
 /**
- * @Desc: 新增一个用于处理系统ctrl+c ctrl+v等方式导入导出节点的MIMETYPE处理，如系统不支持clipboardEvent或者是FF则不初始化改class
+ * @Desc: MIME type handling for importing and exporting nodes through system ctrl+c and ctrl+v.
+ * It is not initialized when the system does not support ClipboardEvent or when running in Firefox.
  * @Editor: Naixor
  * @Date: 2015.9.21
  */
 define(function(require, exports, module) {
 	function MimeType() {
 		/**
-		 * 私有变量
+		 * Private variables.
 		 */
 		var SPLITOR = '\uFEFF';
 		var MIMETYPE = {
@@ -18,15 +19,15 @@ define(function(require, exports, module) {
 		};
 
 		/**
-		 * 用于将一段纯文本封装成符合其数据格式的文本
+		 * Wrap plain text in text that matches the target data format.
 		 * @method process 			private
-		 * @param  {MIMETYPE} mimetype 数据格式
-		 * @param  {String} text     原始文本
-		 * @return {String}          符合该数据格式下的文本
+		 * @param  {MIMETYPE} mimetype Data format.
+		 * @param  {String} text     Original text.
+		 * @return {String}          Text matching the data format.
 		 * @example
 		 * 			var str = "123";
-		 * 			str = process('application/km', str); // 返回的内容再经过MimeType判断会读取出其数据格式为application/km
-		 * 			process('text/plain', str); // 若接受到一个非纯文本信息，则会将其转换为新的数据格式
+		 * 			str = process('application/km', str); // MimeType reads the returned content as application/km.
+		 * 			process('text/plain', str); // Non-plain text input is converted to the new data format.
 		 */
 		function process(mimetype, text) {
 			if (!this.isPureText(text)) {
@@ -43,10 +44,10 @@ define(function(require, exports, module) {
 		}
 
 		/**
-		 * 注册数据类型的标识
+		 * Register a data type sign.
 		 * @method registMimeTypeProtocol  	public
-		 * @param  {String} type 数据类型
-		 * @param  {String} sign 标识
+		 * @param  {String} type Data type.
+		 * @param  {String} sign Sign.
 		 */
 		this.registMimeTypeProtocol = function(type, sign) {
 			if (sign && SIGN[sign]) {
@@ -60,14 +61,14 @@ define(function(require, exports, module) {
 		}
 
 		/**
-		 * 获取已注册数据类型的协议
+		 * Get a registered data type protocol.
 		 * @method getMimeTypeProtocol  	public
-		 * @param  {String} type 数据类型
-		 * @param  {String} text|undefiend  文本内容或不传入
+		 * @param  {String} type Data type.
+		 * @param  {String} text|undefiend  Text content, or omitted.
 		 * @return {String|Function} 
 		 * @example 
-		 * 			text若不传入则直接返回对应数据格式的处理(process)方法
-		 * 			若传入文本则直接调用对应的process方法进行处理，此时返回处理后的内容
+		 * 			If text is omitted, return the process method for the data format.
+		 * 			If text is provided, call the corresponding process method and return its result.
 		 * 			var m = new MimeType();
 		 * 			var kmprocess = m.getMimeTypeProtocol('application/km');
 		 * 			kmprocess("123") === m.getMimeTypeProtocol('application/km', "123");

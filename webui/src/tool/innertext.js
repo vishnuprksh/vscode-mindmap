@@ -44,7 +44,7 @@ define(function(require, exports, module) {
         });
         HTMLElement.prototype.__defineSetter__('innerText', function(text) {
             /**
-             * @Desc: 解决FireFox节点内容删除后text为null，出现报错的问题
+             * @Desc: Fix Firefox errors when text is null after node content is deleted.
              * @Editor: Naixor
              * @Date: 2015.9.16
              */

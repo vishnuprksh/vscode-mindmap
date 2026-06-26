@@ -1,7 +1,7 @@
 /**
  * @fileOverview
  *
- * 用于拖拽节点时屏蔽键盘事件
+ * Blocks keyboard events while dragging nodes.
  *
  * @author: techird
  * @copyright: Baidu FEX, 2014

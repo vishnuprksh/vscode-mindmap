@@ -11,15 +11,15 @@ angular.module('kityminderEditor')
 
                /*
                *
-               * 用户选择一个新的选项卡会执行 setCurTab 和 foldTopTab 两个函数
-               * 用户点击原来的选项卡会执行 foldTopTop 一个函数
+               * Selecting a new tab runs both setCurTab and foldTopTab.
+               * Clicking the current tab runs only foldTopTop.
                *
-               * 也就是每次选择新的选项卡都会执行 setCurTab，初始化的时候也会执行 setCurTab 函数
-               * 因此用 executedCurTab 记录是否已经执行了 setCurTab 函数
-               * 用 isInit 记录是否是初始化的状态，在任意一个函数时候 isInit 设置为 false
-               * 用 isOpen 记录是否打开了 topTab
+               * setCurTab runs whenever a new tab is selected and also during initialization.
+               * executedCurTab records whether setCurTab has already run.
+               * isInit records whether the directive is initializing and is set to false by either function.
+               * isOpen records whether topTab is open.
                *
-               * 因此用到了三个 mutex
+               * This requires three mutex flags.
                * */
                var executedCurTab = false;
                var isInit = true;

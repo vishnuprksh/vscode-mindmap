@@ -1,7 +1,7 @@
 define(function(require, exports, module) {
 
     /**
-     * 运行时
+     * Runtime.
      */
     var runtimes = [];
 

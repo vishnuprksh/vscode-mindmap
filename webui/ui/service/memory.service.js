@@ -1,7 +1,7 @@
 /**
  * @fileOverview
  *
- * UI 状态的 LocalStorage 的存取文件，未来可能在离线编辑的时候升级
+ * LocalStorage access for UI state. This may be upgraded for offline editing later.
  *
  * @author: zhangbobell
  * @email : zhangbobell@163.com

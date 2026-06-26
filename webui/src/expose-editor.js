@@ -1,7 +1,7 @@
 /**
  * @fileOverview
  *
- * 打包暴露
+ * Bundle exposure.
  *
  * @author: techird
  * @copyright: Baidu FEX, 2014

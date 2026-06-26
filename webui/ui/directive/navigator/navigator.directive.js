@@ -1,7 +1,7 @@
 /**
  * @fileOverview
  *
- * 左下角的导航器
+ * Bottom-left navigator.
  *
  * @author: zhangbobell
  * @email : zhangbobell@163.com
@@ -35,10 +35,10 @@ angular.module('kityminderEditor')
                     return scope.getZoomRadio(value) * totalHeight;
                 };
 
-                // 初始的缩放倍数
+                // Initial zoom ratio.
                 scope.zoom = 100;
 
-                // 发生缩放事件时
+                // When a zoom event occurs.
                 minder.on('zoom', function(e) {
                     scope.zoom = e.zoom;
                 });
@@ -79,31 +79,31 @@ angular.module('kityminderEditor')
                 }
 
 
-                /**  以下部分是缩略图导航器 *
+                /** Thumbnail navigator section.
                  * */
 
                 var $previewNavigator = $('.nav-previewer');
 
-                // 画布，渲染缩略图
+                // Canvas used to render thumbnails.
                 var paper = new kity.Paper($previewNavigator[0]);
 
-                // 用两个路径来挥之节点和连线的缩略图
+                // Use two paths to draw node and connection thumbnails.
                 var nodeThumb = paper.put(new kity.Path());
                 var connectionThumb = paper.put(new kity.Path());
 
-                // 表示可视区域的矩形
+                // Rectangle representing the visible area.
                 var visibleRect = paper.put(new kity.Rect(100, 100).stroke('red', '1%'));
 
                 var contentView = new kity.Box(), visibleView = new kity.Box();
 
                 /**
-                 * 增加一个对天盘图情况缩略图的处理,
+                 * Add thumbnail handling for the Tianpan theme.
                  * @Editor: Naixor line 104~129
                  * @Date: 2015.11.3
                  */
                 var pathHandler = getPathHandler(minder.getTheme());
 
-                // 主题切换事件
+                // Theme change event.
                 minder.on('themechange', function(e) {
                     pathHandler = getPathHandler(e.theme);
                 });

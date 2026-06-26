@@ -26,7 +26,7 @@ angular.module('kityminderEditor')
 					return style;
 				};
 
-				// 维护 theme key 列表以保证列表美观（不按字母顺序排序）
+				// Maintain the theme key list for a nicer order instead of sorting alphabetically.
 				$scope.themeKeyList = [
 					'classic',
 					'classic-compact',

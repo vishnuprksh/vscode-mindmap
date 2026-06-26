@@ -1,21 +1,21 @@
 angular.module('kityminderEditor').provider('config', function() {
   this.config = {
-    // 右侧面板最小宽度
+    // Minimum right panel width.
     ctrlPanelMin: 250,
 
-    // 右侧面板宽度
+    // Right panel width.
     ctrlPanelWidth: 250,
 
-    // 分割线宽度
+    // Divider width.
     dividerWidth: 3,
 
-    // 默认语言
+    // Default language.
     defaultLang: 'en',
 
-    // 放大缩小比例
+    // Zoom ratio.
     zoom: [10, 20, 30, 50, 80, 100, 120, 150, 200],
 
-    // 图片上传接口
+    // Image upload endpoint.
     imageUpload: 'server/imageUpload.php',
   };
 
@@ -23,7 +23,7 @@ angular.module('kityminderEditor').provider('config', function() {
     var supported = Object.keys(this.config);
     var configObj = {};
 
-    // 支持全配置
+    // Support full configuration.
     if (typeof key === 'object') {
       configObj = key;
     } else {

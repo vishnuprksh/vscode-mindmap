@@ -51,7 +51,7 @@ angular.module('kityminderEditor')
                     return valueTransfer.noteEditorOpen;
                 };
 
-                // 监听面板状态变量的改变
+                // Listen for panel state changes.
                 $scope.$watch(noteEditorOpen, function(newVal, oldVal) {
                     if (newVal) {
                         setTimeout(function() {

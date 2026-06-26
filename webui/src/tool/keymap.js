@@ -58,7 +58,7 @@ define(function(require, exports, module) {
         '.': 190
     };
 
-    // 小写适配
+    // Lowercase adaptation.
     for (var key in keymap) {
         if (keymap.hasOwnProperty(key)) {
             keymap[key.toLowerCase()] = keymap[key];

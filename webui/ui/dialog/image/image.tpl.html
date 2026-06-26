@@ -1,15 +1,15 @@
 <div class="modal-header">
-    <h3 class="modal-title">图片</h3>
+    <h3 class="modal-title">Image</h3>
 </div>
 <div class="modal-body">
     <tabset>
-        <tab heading="图片搜索">
+        <tab heading="Image Search">
             <form class="form-inline">
                 <div class="form-group">
-                    <label for="search-keyword">关键词：</label>
-                    <input type="text" class="form-control" ng-model="data.searchKeyword2" id="search-keyword" placeholder="请输入搜索的关键词">
+                    <label for="search-keyword">Keyword:</label>
+                    <input type="text" class="form-control" ng-model="data.searchKeyword2" id="search-keyword" placeholder="Enter a search keyword">
                 </div>
-                <button class="btn btn-primary" ng-click="searchImage()">百度一下</button>
+                <button class="btn btn-primary" ng-click="searchImage()">Search</button>
             </form>
             <div class="search-result" id="search-result">
                 <ul>
@@ -20,10 +20,10 @@
                 </ul>
             </div>
         </tab>
-        <tab heading="外链图片">
+        <tab heading="External Image">
             <form>
                 <div class="form-group" ng-class="{true: 'has-success', false: 'has-error'}[urlPassed]">
-                    <label for="image-url">链接地址：</label>
+                    <label for="image-url">Link URL:</label>
                     <input type="text"
                            class="form-control"
                            ng-model="data.url"
@@ -31,31 +31,31 @@
                            ng-focus="this.value = data.url"
                            ng-keydown="shortCut($event)"
                            id="image-url"
-                           placeholder="必填：以 http(s):// 开头">
+                           placeholder="Required: starts with http(s)://">
                 </div>
                 <div class="form-group" ng-class="{'has-success' : titlePassed}">
-                    <label for="image-title">提示文本：</label>
-                    <input type="text" class="form-control" ng-model="data.title" ng-blur="titlePassed = true" id="image-title" placeholder="选填：鼠标在图片上悬停时提示的文本">
+                    <label for="image-title">Tooltip Text:</label>
+                    <input type="text" class="form-control" ng-model="data.title" ng-blur="titlePassed = true" id="image-title" placeholder="Optional: text shown when hovering over the image">
                 </div>
                 <div class="form-group">
-                    <label for="image-preview">图片预览：</label>
+                    <label for="image-preview">Image Preview:</label>
                     <img class="image-preview" id="image-preview" ng-src="{{ data.url }}" alt="{{ data.title }}"/>
                 </div>
             </form>
         </tab>
-        <tab heading="上传图片" active="true">
+        <tab heading="Upload Image" active="true">
             <form>
                 <div class="form-group">
-                    <!-- 这里不能用 ng-change -->
+                    <!-- ng-change cannot be used here. -->
                     <input type="file" name="upload-image" id="upload-image" class="upload-image" accept=".jpg,.JPG,jpeg,JPEG,.png,.PNG,.gif,.GIF" onchange="angular.element(this).scope().uploadImage()"/>
-                    <label for="upload-image" class="btn btn-primary"><span>选择文件&hellip;</span></label>
+                    <label for="upload-image" class="btn btn-primary"><span>Choose File&hellip;</span></label>
                 </div>
                 <div class="form-group" ng-class="{'has-success' : titlePassed}">
-                    <label for="image-title">提示文本：</label>
-                    <input type="text" class="form-control" ng-model="data.title" ng-blur="titlePassed = true" id="image-title" placeholder="选填：鼠标在图片上悬停时提示的文本">
+                    <label for="image-title">Tooltip Text:</label>
+                    <input type="text" class="form-control" ng-model="data.title" ng-blur="titlePassed = true" id="image-title" placeholder="Optional: text shown when hovering over the image">
                 </div>
                 <div class="form-group">
-                    <label for="image-preview">图片预览：</label>
+                    <label for="image-preview">Image Preview:</label>
                     <img class="image-preview" id="image-preview" ng-src="{{ data.url }}" title="{{ data.title }}" alt="{{ data.title }}"/>
                 </div>
             </form>
@@ -64,6 +64,6 @@
 
 </div>
 <div class="modal-footer">
-    <button class="btn btn-primary" ng-click="ok()">确定</button>
-    <button class="btn btn-warning" ng-click="cancel()">取消</button>
+    <button class="btn btn-primary" ng-click="ok()">OK</button>
+    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
 </div>

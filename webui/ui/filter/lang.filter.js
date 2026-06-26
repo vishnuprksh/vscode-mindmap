@@ -6,7 +6,7 @@ angular.module('kityminderEditor').filter('lang', [
       var defaultLang = config.get('defaultLang');
 
       if (lang[defaultLang] == undefined) {
-        return '未发现对应语言包，请检查 lang.xxx.service.js!';
+        return 'Language pack not found. Please check lang.xxx.service.js.';
       } else {
         var dict = lang[defaultLang];
         block.split('/').forEach(function(ele, idx) {

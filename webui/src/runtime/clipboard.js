@@ -1,5 +1,5 @@
 /**
- * @Desc: 处理editor的clipboard事件，只在支持ClipboardEvent并且不是FF的情况下工作
+ * @Desc: Handle editor clipboard events. Works only when ClipboardEvent is supported and the browser is not Firefox.
  * @Editor: Naixor
  * @Date: 2015.9.21
  */
@@ -22,7 +22,7 @@ define(function(require, exports, module) {
 		var _selectedNodes = [];
 
 		/*
-		 * 增加对多节点赋值粘贴的处理
+		 * Add support for copying and pasting multiple nodes.
 		 */
 		function encode (nodes) {
 			var _nodes = [];
@@ -44,8 +44,8 @@ define(function(require, exports, module) {
 					case 'normal': {
 						var nodes = [].concat(minder.getSelectedNodes());
 						if (nodes.length) {
-							// 这里由于被粘贴复制的节点的id信息也都一样，故做此算法
-							// 这里有个疑问，使用node.getParent()或者node.parent会离奇导致出现非选中节点被渲染成选中节点，因此使用isAncestorOf，而没有使用自行回溯的方式
+							// Copied nodes may share the same id information, so this algorithm filters them.
+							// Using node.getParent() or node.parent can render unselected nodes as selected, so use isAncestorOf instead of walking the tree manually.
 							if (nodes.length > 1) {
 								var targetLevel;
 								nodes.sort(function(a, b) {
@@ -122,7 +122,7 @@ define(function(require, exports, module) {
 
 				switch (state) {
 					case 'input': {
-						// input状态下如果格式为application/km则不进行paste操作
+						// In input state, do not paste application/km data.
 						if (!MimeType.isPureText(textData)) {
 							e.preventDefault();
 							return;
@@ -131,7 +131,7 @@ define(function(require, exports, module) {
 					}
 					case 'normal': {
 						/*
-						 * 针对normal状态下通过对选中节点粘贴导入子节点文本进行单独处理
+						 * In normal state, handle pasting child-node text into selected nodes separately.
 						 */
 						var sNodes = minder.getSelectedNodes();
 						
@@ -139,7 +139,7 @@ define(function(require, exports, module) {
 							var nodes = decode(MimeType.getPureText(textData));
 							var _node; 
 							sNodes.forEach(function(node) {
-								// 由于粘贴逻辑中为了排除子节点重新排序导致逆序，因此复制的时候倒过来
+								// Iterate backward because paste logic reorders child nodes while filtering.
 								for (var i = nodes.length-1; i >= 0; i--) {
 									_node = minder.createNode(null, node);
 									minder.importNode(_node, nodes[i]);
@@ -175,7 +175,7 @@ define(function(require, exports, module) {
 			}
 		}
 		/**
-		 * 由editor的receiver统一处理全部事件，包括clipboard事件
+		 * The editor receiver handles all events, including clipboard events.
 		 * @Editor: Naixor
 		 * @Date: 2015.9.24
 		 */

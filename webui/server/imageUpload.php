@@ -1,16 +1,16 @@
 <?php
     /**
-    * @fileOverview: 本文件用于 DEMO 用途，用于提供图片上传后端的接口，接收前端的上传文件请求，返回上传成功后的 URL（绝对地址）
+    * @fileOverview: Demo backend endpoint for image uploads. It accepts frontend upload requests and returns the uploaded image URL as an absolute URL.
     *
-    * 原理：
-    *     1. 返回的接口结构为 {errno: <错误号, 无错误则为 0>, msg: <错误信息>, data: {url: <返回的 URL>}}；
-    *     2. 由于要兼容两种情况的上传：通过对话框选择本地文件上传和直接 Ctrl + V（多见于截图后），因此本文件分别进行了判断
+    * Behavior:
+    *     1. The response shape is {errno: <error code, 0 for no error>, msg: <error message>, data: {url: <returned URL>}}.
+    *     2. The endpoint supports both uploads from the dialog and direct Ctrl + V uploads, which are common after screenshots.
     *
     *
-    * 注意：
-    *     1. 本文件的路径可以进行配置，详见 README.md 中「初始化配置」部分。
-    *     2. 由于使用场景不同，请根据实际场景编写上传文件的处理。
-    *     3. 本文件并没有做任何的安全方面的防护，请勿用于生产环境。
+    * Notes:
+    *     1. This file path is configurable. See the configuration section in README.md.
+    *     2. Upload handling should be adapted for your actual use case.
+    *     3. This file has no security hardening and must not be used in production.
     *
     * @author: zhangbobell
     *
@@ -18,7 +18,7 @@
     *
     */
 
-    // 返回给前端的地址是绝对地址，这里是前缀
+    // Prefix used to return an absolute URL to the frontend.
     $HTTP_PREFIX = 'http://localhost/kityminder-editor/';
 
 
@@ -38,7 +38,7 @@
             $msg = $_FILES["upload_file"]["error"];
         } else {
 
-            // 分为两种情况 `Ctrl + V` 和普通上传
+            // Handle both `Ctrl + V` uploads and regular uploads.
             if ($_FILES["upload_file"]["name"] === 'blob') {
                 $ext_name =  'png';
             } else {

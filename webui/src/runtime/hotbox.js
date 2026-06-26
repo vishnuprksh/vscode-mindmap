@@ -1,7 +1,7 @@
 /**
  * @fileOverview
  *
- * 热盒 Runtime
+ * Hotbox runtime.
  *
  * @author: techird
  * @copyright: Baidu FEX, 2014

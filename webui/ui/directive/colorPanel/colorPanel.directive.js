@@ -22,7 +22,7 @@ angular.module('kityminderEditor')
                     var currentNode = minder.getSelectedNode();
                     var bgColor = minder.getNodeStyle(currentNode, 'background');
 
-                    // 有可能是 kity 的颜色类
+                    // It may be a kity color object.
                     return typeof bgColor === 'object' ? bgColor.toHEX() : bgColor;
                 };
 

@@ -36,7 +36,7 @@ angular.module('kityminderEditor')
                             return resource.name;
                         });
 
-	                    // 由于 interactchange 带来的改变则不用执行 resource 命令
+	                    // Changes from interactchange do not need to execute the resource command.
 	                    if (isInteracting) {
 		                    return;
 	                    }

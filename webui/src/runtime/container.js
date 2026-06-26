@@ -1,7 +1,7 @@
 /**
  * @fileOverview
  *
- * 初始化编辑器的容器
+ * Initialize the editor container.
  *
  * @author: techird
  * @copyright: Baidu FEX, 2014
@@ -9,7 +9,7 @@
 define(function(require, exports, module) {
 
     /**
-     * 最先执行的 Runtime，初始化编辑器容器
+     * First runtime to execute. Initializes the editor container.
      */
     function ContainerRuntime() {
         var container;
@@ -22,10 +22,10 @@ define(function(require, exports, module) {
 
         if (!container) throw new Error('Invalid selector: ' + this.selector);
 
-        // 这个类名用于给编辑器添加样式
+        // This class name applies editor styles.
         container.classList.add('km-editor');
 
-        // 暴露容器给其他运行时使用
+        // Expose the container for other runtimes.
         this.container = container;
     }
 

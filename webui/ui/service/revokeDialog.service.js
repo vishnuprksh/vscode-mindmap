@@ -2,7 +2,7 @@ angular.module('kityminderEditor').service('revokeDialog', ['$modal', 'minder.se
 
     minderService.registerEvent(function() {
 
-        // 触发导入节点或导出节点对话框
+        // Open the import or export node dialog.
         var minder = window.minder;
         var editor = window.editor;
         var parentFSM = editor.hotbox.getParentFSM();
@@ -18,7 +18,7 @@ angular.module('kityminderEditor').service('revokeDialog', ['$modal', 'minder.se
                 size: 'md',
                 resolve: {
                     title: function() {
-                        return '导入节点';
+                        return 'Import Node';
                     },
                     defaultValue: function() {
                         return '';
@@ -53,7 +53,7 @@ angular.module('kityminderEditor').service('revokeDialog', ['$modal', 'minder.se
                 size: 'md',
                 resolve: {
                     title: function() {
-                        return '导出节点';
+                        return 'Export Node';
                     },
                     defaultValue: function() {
                         var selectedNode = minder.getSelectedNode(),

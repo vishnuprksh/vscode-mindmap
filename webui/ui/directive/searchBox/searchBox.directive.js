@@ -16,7 +16,7 @@ angular.module('kityminderEditor')
                 $scope.showTip = false;
                 $scope.showSearch = false;
 
-                // 处理输入框按键事件
+                // Handle input key events.
                 function handleKeyDown(e) {
                     if (e.keyCode == 13) {
                         var direction = e.shiftKey ? 'prev' : 'next';
@@ -101,7 +101,7 @@ angular.module('kityminderEditor')
                         return;
                     }
 
-                    // 当搜索不到节点时候默认的选项
+                    // Default option when no nodes are found.
                     $scope.showTip = true;
                     $scope.curIndex = 0;
                     $scope.resultNum = 0;

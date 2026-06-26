@@ -32,9 +32,9 @@ define(function(require, exports, module) {
         // Shift, Control, Alt KeyCode ignored.
         if ([16, 17, 18, 91].indexOf(keyEvent.keyCode) === -1) {
             /**
-             * 解决浏览器输入法状态下对keyDown的keyCode判断不准确的问题,使用keyIdentifier,
-             * 可以解决chrome和safari下的各种问题,其他浏览器依旧有问题,然而那并不影响我们对特
-             * 需判断的按键进行判断(比如Space在safari输入法态下就是229,其他的就不是)
+             * Use keyIdentifier to fix inaccurate keyCode detection for keyDown while browser IME is active.
+             * This solves many Chrome and Safari cases. Other browsers still have issues, but those do not affect
+             * the keys we need to detect, such as Space being 229 in Safari IME state.
              * @editor Naixor
              * @Date 2015-12-2
              */

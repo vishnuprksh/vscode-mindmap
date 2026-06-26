@@ -38,7 +38,7 @@ angular.module('kityminderEditor')
                 $scope.cancel();
             }
 
-            // tab 键屏蔽默认事件 和 backspace 键屏蔽默认事件
+            // Prevent the default Tab behavior and Backspace behavior in export mode.
             if (e.keyCode == 8 && type == 'export') {
                 e.preventDefault();
             }
@@ -55,7 +55,7 @@ angular.module('kityminderEditor')
         };
 
         /*
-        * 获取 textarea 的光标位置
+        * Get the textarea caret position.
         * @Author: Naixor
         * @date: 2015.09.23
         * */
@@ -75,7 +75,7 @@ angular.module('kityminderEditor')
         }
 
         /*
-         * 设置 textarea 的光标位置
+         * Set the textarea caret position.
          * @Author: Naixor
          * @date: 2015.09.23
          * */

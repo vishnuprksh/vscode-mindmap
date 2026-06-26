@@ -1,7 +1,7 @@
 /**
  * @fileOverview
  *
- * 文本输入支持
+ * Text input support.
  *
  * @author: techird
  * @copyright: Baidu FEX, 2014
@@ -94,7 +94,7 @@ define(function(require, exports, module) {
         function setupHotbox() {
             hotbox.state('main').button({
                 position: 'center',
-                label: '编辑',
+                label: 'Edit',
                 key: 'F2',
                 enable: function() {
                     return minder.queryCommandState('text') != -1;
@@ -105,7 +105,7 @@ define(function(require, exports, module) {
 
 
         /**
-         * 增加对字体的鉴别，以保证用户在编辑状态ctrl/cmd + b/i所触发的加粗斜体与显示一致
+         * Detect font styling so bold/italic triggered by ctrl/cmd + b/i in edit mode matches the rendered node.
          * @editor Naixor
          * @Date 2015-12-2
          */
@@ -137,7 +137,7 @@ define(function(require, exports, module) {
         }
 
         /**
-         * 增加对字体的鉴别，以保证用户在编辑状态ctrl/cmd + b/i所触发的加粗斜体与显示一致
+         * Detect font styling so bold/italic triggered by ctrl/cmd + b/i in edit mode matches the rendered node.
          * @editor Naixor
          * @Date 2015-12-2
          */
@@ -156,9 +156,9 @@ define(function(require, exports, module) {
         }
 
         /**
-         * 按照文本提交操作处理
-         * @Desc: 从其他节点复制文字到另一个节点时部分浏览器(chrome)会自动包裹一个span标签，这样试用一下逻辑出来的就不是text节点二是span节点因此导致undefined的情况发生
-         * @Warning: 下方代码使用[].slice.call来将HTMLDomCollection处理成为Array，ie8及以下会有问题
+         * Handle text submission.
+         * @Desc: Some browsers, such as Chrome, wrap copied node text in a span. This logic then sees a span instead of a text node, which can otherwise produce undefined.
+         * @Warning: The code below uses [].slice.call to convert HTMLDomCollection to Array, which may have issues in IE8 and below.
          * @Editor: Naixor
          * @Date: 2015.9.16
          */
@@ -168,7 +168,7 @@ define(function(require, exports, module) {
                 ENTER_CHAR = '\n',
                 STR_CHECK = /\S/,
                 SPACE_CHAR = '\u0020',
-                // 针对FF,SG,BD,LB,IE等浏览器下SPACE的charCode存在为32和160的情况做处理
+                // Handle SPACE charCode values 32 and 160 across browsers such as Firefox, SG, BD, LB, and IE.
                 SPACE_CHAR_REGEXP = new RegExp('(\u0020|' + String.fromCharCode(160) + ')'),
                 BR = document.createElement('br');
             var isBold = false,
@@ -181,19 +181,19 @@ define(function(require, exports, module) {
                 str = textNodes[i];
 
                 switch (Object.prototype.toString.call(str)) {
-                    // 正常情况处理
+                    // Normal handling.
                     case '[object HTMLBRElement]': {
                         text += ENTER_CHAR;
                         break;
                     }
                     case '[object Text]': {
-                        // SG下会莫名其妙的加上&nbsp;影响后续判断，干掉！
+                        // SG may unexpectedly add &nbsp;, which affects later checks. Remove it.
                         /**
-                         * FF下的wholeText会导致如下问题：
-                         *     |123| -> 在一个节点中输入一段字符，此时TextNode为[#Text 123]
-                         *     提交并重新编辑，在后面追加几个字符
-                         *     |123abc| -> 此时123为一个TextNode为[#Text 123, #Text abc]，但是对这两个任意取值wholeText均为全部内容123abc
-                         * 上述BUG仅存在在FF中，故将wholeText更改为textContent
+                         * Firefox wholeText can cause this issue:
+                         *     |123| -> Type text in a node, creating TextNode [#Text 123].
+                         *     Commit, edit again, and append characters.
+                         *     |123abc| -> 123 becomes one TextNode and abc another, but wholeText on either returns 123abc.
+                         * This bug exists only in Firefox, so use textContent instead of wholeText.
                          */
                         str = str.textContent.replace("&nbsp;", " ");
 
@@ -211,7 +211,7 @@ define(function(require, exports, module) {
                         }
                         break;
                     }
-                    // ctrl + b/i 会给字体加上<b>/<i>标签来实现黑体和斜体
+                    // ctrl + b/i adds <b>/<i> tags to apply bold and italic.
                     case '[object HTMLElement]': {
                         switch (str.nodeName) {
                             case "B": {
@@ -229,25 +229,25 @@ define(function(require, exports, module) {
                         i--;
                         break;
                     }
-                    // 被增加span标签的情况会被处理成正常情况并会推交给上面处理
+                    // Added span tags are normalized and handled above.
                     case '[object HTMLSpanElement]': {
                         [].splice.apply(textNodes, [i, 1].concat([].slice.call(str.childNodes)));
                         l = textNodes.length;
                         i--;
                         break;
                     }
-                    // 若标签为image标签，则判断是否为合法url，是将其加载进来
+                    // If the tag is an image, load it when it has a valid URL.
                     case '[object HTMLImageElement]': {
                         if (str.src) {
                             if (/http(|s):\/\//.test(str.src)) {
                                 minder.execCommand("Image", str.src, str.alt);
                             } else {
-                                // data:image协议情况
+                                // data:image protocol case.
                             }
                         };
                         break;
                     }
-                    // 被增加div标签的情况会被处理成正常情况并会推交给上面处理
+                    // Added div tags are normalized and handled above.
                     case '[object HTMLDivElement]': {
                         _divChildNodes = [];
                         for (var di = 0, l = str.childNodes.length; di < l; di++) {
@@ -276,7 +276,7 @@ define(function(require, exports, module) {
                                 text += "";
                             }
                         }
-                        // // 其他带有样式的节点被粘贴进来，则直接取textContent，若取不出来则置空
+                        // For other pasted styled nodes, use textContent or an empty string when unavailable.
                     }
                 }
             };
@@ -300,9 +300,9 @@ define(function(require, exports, module) {
         }
 
         /**
-         * 判断节点的文本信息是否是
-         * @Desc: 从其他节点复制文字到另一个节点时部分浏览器(chrome)会自动包裹一个span标签，这样使用以下逻辑出来的就不是text节点二是span节点因此导致undefined的情况发生
-         * @Notice: 此处逻辑应该拆分到 kityminder-core/core/data中去，单独增加一个对某个节点importJson的事件
+         * Determine whether node text can be parsed as node data.
+         * @Desc: Some browsers, such as Chrome, wrap copied node text in a span. This logic then sees a span instead of a text node, which can otherwise produce undefined.
+         * @Notice: This logic should be split into kityminder-core/core/data with a dedicated importJson event for a node.
          * @Editor: Naixor
          * @Date: 2015.9.16
          */
@@ -330,7 +330,7 @@ define(function(require, exports, module) {
                 minder.fire("contentchange");
                 minder.getRoot().renderTree();
 
-                // 无法被转换成脑图节点则不处理
+                // Ignore content that cannot be converted into mind map nodes.
                 if (e.toString() !== 'Error: Invalid local format') {
                     throw e;
                 }
@@ -339,8 +339,8 @@ define(function(require, exports, module) {
 
         function commitInputResult() {
             /**
-             * @Desc: 进行如下处理：
-             *             根据用户的输入判断是否生成新的节点
+             * @Desc: Handle the following:
+             *             Decide whether to generate new nodes based on user input.
              *        fix #83 https://github.com/fex-team/kityminder-editor/issues/83
              * @Editor: Naixor
              * @Date: 2015.9.16
@@ -348,13 +348,12 @@ define(function(require, exports, module) {
             var textNodes = [].slice.call(receiverElement.childNodes);
 
             /**
-             * @Desc: 增加setTimeout的原因：ie下receiverElement.innerHTML=""会导致后
-             * 		  面commitInputText中使用textContent报错，不要问我什么原因！
+             * @Desc: setTimeout is needed because receiverElement.innerHTML="" can make later textContent use in commitInputText fail in IE.
              * @Editor: Naixor
              * @Date: 2015.12.14
              */
             setTimeout(function () {
-                // 解决过大内容导致SVG窜位问题
+                // Fix SVG offset issues caused by oversized content.
                 receiverElement.innerHTML = "";
             }, 0);
             var node = minder.getSelectedNode();

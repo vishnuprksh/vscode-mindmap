@@ -1,7 +1,7 @@
 /**
  * @fileOverview
  *
- * 脑图示例运行时
+ * Mind map example runtime.
  *
  * @author: techird
  * @copyright: Baidu FEX, 2014
@@ -10,19 +10,19 @@ define(function(require, exports, module) {
   var Minder = require('../minder');
 
   function MinderRuntime() {
-    // 不使用 kityminder 的按键处理，由 ReceiverRuntime 统一处理
+    // Do not use kityminder key handling. ReceiverRuntime handles it all.
     var minder = new Minder({
       enableKeyReceiver: false,
       enableAnimation: true,
     });
 
-    // 渲染，初始化
+    // Render and initialize.
     minder.renderTo(this.selector);
     minder.setTheme(null);
     minder.select(minder.getRoot(), true);
     minder.execCommand('text', 'MainTopic');
 
-    // 导出给其它 Runtime 使用
+    // Export for other runtimes.
     this.minder = minder;
   }
 

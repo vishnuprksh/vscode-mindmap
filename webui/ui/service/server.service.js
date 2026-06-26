@@ -1,7 +1,7 @@
 /**
  * @fileOverview
  *
- *  与后端交互的服务
+ * Backend interaction service.
  *
  * @author: zhangbobell
  * @email : zhangbobell@163.com

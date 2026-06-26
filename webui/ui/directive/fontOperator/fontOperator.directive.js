@@ -14,23 +14,23 @@ angular.module('kityminderEditor').directive('fontOperator', function() {
       scope.fontFamilyList = [
         {
           name: 'SimSun',
-          val: '宋体,SimSun',
+          val: 'SimSun',
         },
         {
           name: 'Microsoft YaHei',
-          val: '微软雅黑,Microsoft YaHei',
+          val: 'Microsoft YaHei',
         },
         {
           name: 'SimKai',
-          val: '楷体,楷体_GB2312,SimKai',
+          val: 'SimKai',
         },
         {
           name: 'SimHei',
-          val: '黑体, SimHei',
+          val: 'SimHei',
         },
         {
           name: 'SimLi',
-          val: '隶书, SimLi',
+          val: 'SimLi',
         },
         {
           name: 'Andale Mono',
@@ -73,7 +73,7 @@ angular.module('kityminderEditor').directive('fontOperator', function() {
         var currentNode = minder.getSelectedNode();
         var fontColor = minder.getNodeStyle(currentNode, 'color');
 
-        // 有可能是 kity 的颜色类
+        // It may be a kity color object.
         return typeof fontColor === 'object' ? fontColor.toHEX() : fontColor;
       };
 

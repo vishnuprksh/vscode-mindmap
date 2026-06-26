@@ -8,7 +8,7 @@ define(function(require, exports, module){
 
         main.button({
             position: 'top',
-            label: '进度',
+            label: 'Progress',
             key: 'G',
             next: 'progress',
             enable: function() {
@@ -30,7 +30,7 @@ define(function(require, exports, module){
 
         progress.button({
             position: 'center',
-            label: '移除',
+            label: 'Remove',
             key: 'Del',
             action: function() {
                 minder.execCommand('Progress', 0);
@@ -39,7 +39,7 @@ define(function(require, exports, module){
 
         progress.button({
             position: 'top',
-            label: '返回',
+            label: 'Back',
             key: 'esc',
             next: 'back'
         });

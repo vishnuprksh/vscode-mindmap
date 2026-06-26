@@ -8,7 +8,7 @@ define(function(require, exports, module){
 
         main.button({
             position: 'top',
-            label: '优先级',
+            label: 'Priority',
             key: 'P',
             next: 'priority',
             enable: function() {
@@ -30,7 +30,7 @@ define(function(require, exports, module){
 
         priority.button({
             position: 'center',
-            label: '移除',
+            label: 'Remove',
             key: 'Del',
             action: function() {
                 minder.execCommand('Priority', 0);
@@ -39,7 +39,7 @@ define(function(require, exports, module){
 
         priority.button({
             position: 'top',
-            label: '返回',
+            label: 'Back',
             key: 'esc',
             next: 'back'
         });

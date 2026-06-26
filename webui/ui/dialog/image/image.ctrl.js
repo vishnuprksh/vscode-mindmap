@@ -15,7 +15,7 @@ angular.module('kityminderEditor')
         }, 300);
 
 
-        // 搜索图片按钮点击事件
+        // Image search button click handler.
         $scope.searchImage = function() {
             $scope.list = [];
 
@@ -38,7 +38,7 @@ angular.module('kityminderEditor')
                 });
         };
 
-        // 选择图片的鼠标点击事件
+        // Image selection click handler.
         $scope.selectImage = function($event) {
             var targetItem = $('#img-item'+ (this.$index));
             var targetImg = $('#img-'+ (this.$index));
@@ -50,7 +50,7 @@ angular.module('kityminderEditor')
             $scope.data.title = targetImg.attr('alt');
         };
 
-        // 自动上传图片，后端需要直接返回图片 URL
+        // Automatically upload the image; the backend must return the image URL directly.
         $scope.uploadImage = function() {
             var fileInput = $('#upload-image');
             if (!fileInput.val()) {
@@ -65,7 +65,7 @@ angular.module('kityminderEditor')
                     }
                 });
             } else {
-                alert("后缀只能是 jpg、gif 及 png");
+                alert("Only jpg, gif, and png files are supported.");
             }
         };
 

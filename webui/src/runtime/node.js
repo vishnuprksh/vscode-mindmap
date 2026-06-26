@@ -8,13 +8,13 @@ define(function(require, exports, module) {
     var main = hotbox.state('main');
 
     var buttons = [
-      '前移:Alt+Up:ArrangeUp',
-      '下级:Tab|Insert:AppendChildNode',
-      '同级:Enter:AppendSiblingNode',
-      '后移:Alt+Down:ArrangeDown',
-      '删除:Delete|Backspace:RemoveNode',
-      '上级:Shift+Tab|Shift+Insert:AppendParentNode',
-      //'全选:Ctrl+A:SelectAll'
+      'Move Up:Alt+Up:ArrangeUp',
+      'Child:Tab|Insert:AppendChildNode',
+      'Sibling:Enter:AppendSiblingNode',
+      'Move Down:Alt+Down:ArrangeDown',
+      'Delete:Delete|Backspace:RemoveNode',
+      'Parent:Shift+Tab|Shift+Insert:AppendParentNode',
+      //'Select All:Ctrl+A:SelectAll'
     ];
 
     var AppendLock = 0;
@@ -54,7 +54,7 @@ define(function(require, exports, module) {
 
     main.button({
       position: 'bottom',
-      label: '导入节点',
+      label: 'Import Node',
       key: 'Alt + V',
       enable: function() {
         var selectedNodes = minder.getSelectedNodes();
@@ -66,7 +66,7 @@ define(function(require, exports, module) {
 
     main.button({
       position: 'bottom',
-      label: '导出节点',
+      label: 'Export Node',
       key: 'Alt + C',
       enable: function() {
         var selectedNodes = minder.getSelectedNodes();
@@ -99,9 +99,9 @@ define(function(require, exports, module) {
     //    },
     //    beforeShow: function() {
     //        if (!minder.queryCommandState('expand')) {
-    //            this.$button.children[0].innerHTML = '展开';
+    //            this.$button.children[0].innerHTML = 'Expand';
     //        } else {
-    //            this.$button.children[0].innerHTML = '收起';
+    //            this.$button.children[0].innerHTML = 'Collapse';
     //        }
     //    }
     //})

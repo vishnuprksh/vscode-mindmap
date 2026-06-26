@@ -1,4 +1,4 @@
-// TODO: 使用一个 div 容器作为 previewer，而不是两个
+// TODO: Use one div container as the previewer instead of two.
 angular.module('kityminderEditor')
 
 	.directive('notePreviewer', ['$sce', 'valueTransfer', function($sce, valueTransfer) {
@@ -59,7 +59,7 @@ angular.module('kityminderEditor')
 						html = html.replace(new RegExp('(' + keyword + ')', 'ig'), '<span class="highlight">$1</span>');
 					}
 					scope.noteContent = $sce.trustAsHtml(html);
-					scope.$apply(); // 让浏览器重新渲染以获取 previewer 提示框的尺寸
+					scope.$apply(); // Let the browser re-render so the preview tooltip size can be measured.
 
 					var cw = $($container[0]).width();
 					var ch = $($container[0]).height();

@@ -1,7 +1,7 @@
 /**
  * @fileOverview
  *
- * 编辑器状态机
+ * Editor state machine.
  *
  * @author: techird
  * @copyright: Baidu FEX, 2014
@@ -25,12 +25,12 @@ define(function(require, exports, module) {
         var handlers = [];
 
         /**
-         * 状态跳转
+         * State transition.
          *
-         * 会通知所有的状态跳转监视器
+         * Notify all state transition watchers.
          *
-         * @param  {string} newState  新状态名称
-         * @param  {any} reason 跳转的原因，可以作为参数传递给跳转监视器
+         * @param  {string} newState  New state name.
+         * @param  {any} reason Transition reason. It can be passed to transition watchers.
          */
         this.jump = function(newState, reason) {
             if (!reason) throw new Error('Please tell fsm the reason to jump');
@@ -39,7 +39,7 @@ define(function(require, exports, module) {
             var notify = [oldState, newState].concat([].slice.call(arguments, 1));
             var i, handler;
 
-            // 跳转前
+            // Before transition.
             for (i = 0; i < handlers.length; i++) {
                 handler = handlers[i];
                 if (handlerConditionMatch(handler.condition, 'before', oldState, newState)) {
@@ -50,7 +50,7 @@ define(function(require, exports, module) {
             currentState = newState;
             debug.log('[{0}] {1} -> {2}', reason, oldState, newState);
 
-            // 跳转后
+            // After transition.
             for (i = 0; i < handlers.length; i++) {
                 handler = handlers[i];
                 if (handlerConditionMatch(handler.condition, 'after', oldState, newState)) {
@@ -61,7 +61,7 @@ define(function(require, exports, module) {
         };
 
         /**
-         * 返回当前状态
+         * Return the current state.
          * @return {string}
          */
         this.state = function() {
@@ -69,17 +69,17 @@ define(function(require, exports, module) {
         };
 
         /**
-         * 添加状态跳转监视器
+         * Add a state transition watcher.
          * 
          * @param {string} condition
-         *     监视的时机
-         *         "* => *" （默认）
+         *     Watch timing.
+         *         "* => *" (default)
          *
          * @param  {Function} handler
-         *     监视函数，当状态跳转的时候，会接收三个参数
-         *         * from - 跳转前的状态
-         *         * to - 跳转后的状态
-         *         * reason - 跳转的原因
+         *     Watch function. It receives three arguments during transitions:
+         *         * from - State before transition.
+         *         * to - State after transition.
+         *         * reason - Transition reason.
          */
         this.when = function(condition, handler) {
             if (arguments.length == 1) {
